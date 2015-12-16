@@ -17,13 +17,13 @@ class InfoBot(IRCBot):
                 self.send(reply_to, "Set info: " + ' '.join(command[1:]))
                 r.set(nickname.lower(), ' '.join(command[1:]))
             else:
-                self.send(reply_to, "Usage '.set some info about yourself here'")
+                self.send(reply_to, "Usage '.add some info about yourself here'")
 
         if command[0] == ".info":
             if len(command) >= 2:
                 self.send(reply_to, "Info for " + command[1] + ": " + r.get(command[1].lower()).decode('utf-8'))
             else:
-                self.send(reply_to, "Usage '.enable username'")
+                self.send(reply_to, "Usage '.info username'")
 
 def main():  #TODO: Move config to its own file
     bot = InfoBot()
