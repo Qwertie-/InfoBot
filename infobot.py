@@ -12,14 +12,14 @@ class InfoBot(IRCBot):
         else:
             reply_to = channel
 
-        if command[0] == ".set":
+        if command[0] == ".add":
             if len(command) >= 2:
                 self.send(reply_to, "Set info: " + ' '.join(command[1:]))
                 r.set(nickname.lower(), ' '.join(command[1:]))
             else:
                 self.send(reply_to, "Usage '.set some info about yourself here'")
 
-        if command[0] == ".enable":
+        if command[0] == ".info":
             if len(command) >= 2:
                 self.send(reply_to, "Info for " + command[1] + ": " + r.get(command[1].lower()).decode('utf-8'))
             else:
