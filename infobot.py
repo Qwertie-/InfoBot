@@ -13,11 +13,17 @@ class InfoBot(IRCBot):
             reply_to = channel
 
         if command[0] == ".set":
-            self.send(reply_to, "Set info: " + str(command[1:]))
-            r.set(nickname, str(command[1:]))
+            if len(command) >= 2:
+                self.send(reply_to, "Set info: " + str(command[1:]))
+                r.set(nickname.lower(), str(command[1:]))
+            else:
+                self.send(reply_to, "Usage '.set some info about yourself here'")
 
         if command[0] == ".enable":
-            self.send(reply_to, "Info for " + command[1] + str(r.get(command[1])))
+            if len(command) >= 2:
+                self.send(reply_to, "Info for " + command[1] + ": " + str(r.get(command[1].lower())))
+            else:
+                self.send(reply_to, "Usage '.enable username'")
 
 def main():  #TODO: Move config to its own file
     bot = InfoBot()
