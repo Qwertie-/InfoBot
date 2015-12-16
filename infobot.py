@@ -14,14 +14,14 @@ class InfoBot(IRCBot):
 
         if command[0] == ".set":
             if len(command) >= 2:
-                self.send(reply_to, "Set info: " + str(command[1:]))
-                r.set(nickname.lower(), str(command[1:]))
+                self.send(reply_to, "Set info: " + ' '.join(command[1:]))
+                r.set(nickname.lower(), ' '.join(command[1:]))
             else:
                 self.send(reply_to, "Usage '.set some info about yourself here'")
 
         if command[0] == ".enable":
             if len(command) >= 2:
-                self.send(reply_to, "Info for " + command[1] + ": " + str(r.get(command[1].lower())))
+                self.send(reply_to, "Info for " + command[1] + ": " + r.get(command[1].lower()).decode('utf-8'))
             else:
                 self.send(reply_to, "Usage '.enable username'")
 
