@@ -7,19 +7,16 @@ class InfoBot(IRCBot):
         r = redis.StrictRedis(host='localhost', port=6379, db=0)
         command = message.split(" ") #Split the message
         if is_query:
-            if command[0] == ".set":
-                self.send(nickname, "Set info: " + str(command[1:]))
-                r.set(nickname, str(command[1:]))
-
-            if command[0] == ".enable":
-                self.send(nickname, "Info for " + command[1] + str(r.get(command[1])))
+            reply_to = nickname
         else:
-            if command[0] == ".set":
-                self.send(channel, "Set info: " + str(command[1:]))
-                r.set(nickname, str(command[1:]))
+            reply_to = channel
 
-            if command[0] == ".enable":
-                self.send(channel, "Info for " + command[1] + str(r.get(command[1])))            
+        if command[0] == ".set":
+            self.send(reply_to, "Set info: " + str(command[1:]))
+            r.set(nickname, str(command[1:]))
+
+        if command[0] == ".enable":
+            self.send(reply_to, "Info for " + command[1] + str(r.get(command[1])))
 
 def main():
     bot = InfoBot()
