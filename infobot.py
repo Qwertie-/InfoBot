@@ -1,9 +1,14 @@
 from pyrcb import IRCBot
 import redis
 
+import config
+
 class InfoBot(IRCBot):
     def on_message(self, message, nickname, channel, is_query):
-        r = redis.StrictRedis(host='localhost', port=6379, db=0)
+        r = redis.StrictRedis(host=config.REDIS_HOST,
+                              port=config.REDIS_PORT,
+                              db=config.REDIS_DB,
+                              password=config.REDIS_PASS)
         command = message.split(" ") #Split the message
 
         #Checks if message was from a PM or channel
@@ -37,11 +42,11 @@ class InfoBot(IRCBot):
         pass
 
 
-def main():  #TODO: Move config to its own file
+def main():
     bot = InfoBot()
-    bot.connect("host", 6667)
-    bot.register("InfoBot")
-    bot.join("#channel")
+    bot.connect(config.IRC_HOST, config.IRC_PORT)
+    bot.register(config.IRC_USER)
+    bot.join(config.IRC_CHAN)
     bot.listen()
 
 

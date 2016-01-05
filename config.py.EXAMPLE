@@ -1,0 +1,9 @@
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
+REDIS_PASS = 'whatever_your_redis_pass_is or None'
+
+IRC_HOST = 'localhost'
+IRC_PORT = 6667
+IRC_USER = 'InfoBot'
+IRC_CHAN = '#channel'
