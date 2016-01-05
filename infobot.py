@@ -24,7 +24,11 @@ class InfoBot(IRCBot):
 
         if command[0] == ".info":
             if len(command) >= 2:
-                self.send(reply_to, command[1] + ": " + r.get(command[1].lower()).decode('utf-8'))
+                info = r.get(command[1].lower())
+                if info is None:
+                    self.send(reply_to, "No info found for " + command[1] + ".")
+                    return
+                self.send(reply_to, command[1] + ": " + info.decode('utf-8'))
             else:
                 self.send(reply_to, "Usage: '.info username'")
 
