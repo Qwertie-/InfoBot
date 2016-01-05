@@ -20,13 +20,13 @@ class InfoBot(IRCBot):
                 self.send(reply_to, "Set info: " + ' '.join(command[1:]))
                 r.set(nickname.lower(), ' '.join(command[1:]))
             else:
-                self.send(reply_to, "Usage '.add some info about yourself here'")
+                self.send(reply_to, "Usage: '.add some info about yourself here'")
 
         if command[0] == ".info":
             if len(command) >= 2:
-                self.send(reply_to, "Info for " + command[1] + ": " + r.get(command[1].lower()).decode('utf-8'))
+                self.send(reply_to, command[1] + ": " + r.get(command[1].lower()).decode('utf-8'))
             else:
-                self.send(reply_to, "Usage '.info username'")
+                self.send(reply_to, "Usage: '.info username'")
 
     #TODO: Check for whois from server
     def on_raw(self, nickname, command, args):
