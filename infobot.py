@@ -1,6 +1,6 @@
 from pyrcb import IRCBot
 import redis
-from parse import parse
+import parse
 
 import config
 
@@ -41,8 +41,8 @@ class InfoBot(IRCBot):
         else:
             reply_to = channel
         commands = [
-                    (parse(".add {info}"), self.add_info), 
-                    (parse(".info {name}"), self.get_info)
+                    (parse.compile(".add {info}"), self.add_info), 
+                    (parse.compile(".info {name}"), self.get_info)
                    ]
         for grammar, func in commands:
             attempt = parse(i, message)
