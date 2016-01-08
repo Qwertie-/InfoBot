@@ -43,7 +43,7 @@ class InfoBot(IRCBot):
             reply_to = channel
         commands = [
                     (parse.compile(".add {info}"), self.add_info), 
-                    (parse.compile(".info {name}"), self.get_info)
+                    (parse.compile(".info {name_raw}"), self.get_info)
                    ]
         for parser, func in commands:
             attempt = parser.parse(message)
