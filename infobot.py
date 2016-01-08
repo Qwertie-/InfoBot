@@ -13,7 +13,7 @@ class InfoBot(IRCBot):
 
         super().__init__(*args, **kwargs)
 
-    def add_info(self, nick, channel, reply_to, info):
+    def add_info(self, nickname, channel, reply_to, info):
         #Send server a whois to check that a user is authenticated with NickServ
         self.send_raw("whois " + nickname)
 
@@ -23,7 +23,7 @@ class InfoBot(IRCBot):
         else:
             self.send(reply_to, "Usage: '.add some info about yourself here'")
     
-    def get_info(self, nick, channel, reply_to, name):
+    def get_info(self, nickname, channel, reply_to, name):
         if name: #aka, name != ""
             info = self.r.get(name.lower())
             if info is None:
