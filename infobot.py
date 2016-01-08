@@ -45,7 +45,7 @@ class InfoBot(IRCBot):
                     (parse.compile(".info {name}"), self.get_info)
                    ]
         for grammar, func in commands:
-            attempt = parse(i, message)
+            attempt = parse(grammar, message)
             if attempt != None:
                 return commands[attempt](nick, channel, reply_to, **attempt)
 
