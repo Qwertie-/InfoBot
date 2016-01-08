@@ -47,7 +47,7 @@ class InfoBot(IRCBot):
         for parser, func in commands:
             attempt = parser.parse(message)
             if attempt != None:
-                return func(nickname, channel, reply_to, **attempt)
+                return func(nickname, channel, reply_to, **attempt.named)
 
     #TODO: Check for whois from server
     def on_raw(self, nickname, command, args):
