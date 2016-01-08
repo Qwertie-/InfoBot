@@ -17,14 +17,14 @@ class InfoBot(IRCBot):
         #Send server a whois to check that a user is authenticated with NickServ
         self.send_raw("whois " + nickname)
 
-        if info: # aka, info != ""
+        if info:
             self.send(reply_to, "Set info: " + info)
             self.r.set(nickname.lower(), info)
         else:
             self.send(reply_to, "Usage: '.add some info about yourself here'")
     
     def get_info(self, nickname, channel, reply_to, name):
-        if name: #aka, name != ""
+        if name:
             info = self.r.get(name.lower())
             if info is None:
                 self.send(reply_to, "No info found for " + name + ".")
