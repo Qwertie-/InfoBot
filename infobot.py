@@ -23,7 +23,8 @@ class InfoBot(IRCBot):
         else:
             self.send(reply_to, "Usage: '.add some info about yourself here'")
     
-    def get_info(self, nickname, channel, reply_to, name):
+    def get_info(self, nickname, channel, reply_to, name_raw):
+        name = name_raw.strip()
         if name:
             info = self.r.get(name.lower())
             if info is None:
