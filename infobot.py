@@ -18,7 +18,7 @@ class InfoBot(IRCBot):
         self.send_raw("whois " + nickname)
         self.send(reply_to, "Set info: " + info)
         self.r.set(nickname.lower(), info)
-    
+
     def get_info(self, nickname, channel, reply_to, name_raw):
         name = name_raw.strip()
         info = self.r.get(name.lower())
@@ -27,9 +27,9 @@ class InfoBot(IRCBot):
             return
         self.send(reply_to, name + ": " + info.decode('utf-8'))
 
-    def prompt(input_form, output_form):
+    def prompt(self, input_form, output_form):
         def output_func(nick, chan, reply_to, **args):
-            self.send(reply_to, str.format(output_form, **args)) 
+            self.send(reply_to, str.format(output_form, **args))
        	return (parse.compile(input_form), output_func)
 
     def on_message(self, message, nickname, channel, is_query):
@@ -40,10 +40,10 @@ class InfoBot(IRCBot):
         else:
             reply_to = channel
         commands = [
-                    (parse.compile(".add {info}"), self.add_info), 
+                    (parse.compile(".add {info}"), self.add_info),
                     (parse.compile(".info {name_raw}"), self.get_info),
-                    prompt(".add", "Usage: '.add some info about yourself here'"),
-                    prompt(".info", "Usage: '.info username'")
+                    self.prompt(".add", "Usage: '.add some info about yourself here'"),
+                    self.prompt(".info", "Usage: '.info username'")
                    ]
         for parser, func in commands:
             attempt = parser.parse(message.strip()) #stripping the message here
