@@ -91,7 +91,7 @@ class InfoBot(IRCBot):
                     (parse.compile(".delete {name_raw}"), self.delete_info),
                     (parse.compile(".freeze {name_raw}"), self.freeze_info),
                     (parse.compile(".unfreeze {name_raw}"), self.unfreeze_info),
-                    (parse.compile(".force {name_raw:S} {info}"), self.unfreeze_info),
+                    (parse.compile(".force {name_raw:S} {info}"), self.force_info),
                     self.prompt(".add", "Usage: '.add some info about yourself here'"),
                     self.prompt(".info", "Usage: '.info username'"),
                     self.prompt(".delete", "Mod only command"),
