@@ -64,10 +64,10 @@ class InfoBot(IRCBot):
         else:
             self.send(reply_to, "Only mods can do this.")
 
-    def force_info(self, nickname, channel, reply_to, name_raw, info):
+    def set_info(self, nickname, channel, reply_to, name_raw, info):
         name = name_raw.strip()
         if channel in self.nicklist and nickname in self.nicklist[channel] and self.nicklist[channel][nickname].is_op:
-            self.send(reply_to, "Forced info for " + name + ".")
+            self.send(reply_to, "Set info for " + name + ".")
             self.r.set(name.lower(), info)
         else:
             self.send(reply_to, "Only mods can do this.")
@@ -91,13 +91,13 @@ class InfoBot(IRCBot):
                     (parse.compile(".delete {name_raw}"), self.delete_info),
                     (parse.compile(".freeze {name_raw}"), self.freeze_info),
                     (parse.compile(".unfreeze {name_raw}"), self.unfreeze_info),
-                    (parse.compile(".force {name_raw:S} {info}"), self.force_info),
+                    (parse.compile(".set {name_raw:S} {info}"), self.set_info), # technically this means extra spaces before the name will cause issues
                     self.prompt(".add", "Usage: '.add some info about yourself here'"),
                     self.prompt(".info", "Usage: '.info username'"),
-                    self.prompt(".delete", "Mod only command"),
-                    self.prompt(".freeze", "Mod only command"),
-                    self.prompt(".unfreeze", "Mod only command"),
-                    self.prompt(".force", "Mod only command")
+                    self.prompt(".delete", "Mod only usage: '.delete username'"),
+                    self.prompt(".freeze", "Mod only usage: '.freeze username'"),
+                    self.prompt(".unfreeze", "Mod only usage: '.freeze username'"),
+                    self.prompt(".set", "Mod only usage: '.set username then some info about them'")
                    ]
         for parser, func in commands:
             attempt = parser.parse(message.strip()) #stripping the message here
