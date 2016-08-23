@@ -20,7 +20,7 @@ class InfoBot(IRCBot):
         info_meta = self.r.get("*" + nickname.lower())
         if info_meta != None: info_meta = info_meta.decode("utf-8")
         if info_meta == "frozen":
-            if self.nicklist[channel][nickname].is_op:
+            if channel in self.nicklist and nickname in self.nicklist[channel] and self.nicklist[channel][nickname].is_op:
                 self.r.set(nickname.lower(), info)
                 self.send(reply_to, "Set info: " + info)
             else:
@@ -42,7 +42,7 @@ class InfoBot(IRCBot):
 
     def delete_info(self, nickname, channel, reply_to, name_raw):
         name = name_raw.strip()
-        if self.nicklist[channel][nickname].is_op:
+        if channel in self.nicklist and nickname in self.nicklist[channel] and self.nicklist[channel][nickname].is_op:
             self.send(reply_to, "Deleted info for " + name + ".")
             self.r.delete(name.lower()) # does not delete freezing!!
         else:
@@ -50,7 +50,7 @@ class InfoBot(IRCBot):
 
     def freeze_info(self, nickname, channel, reply_to, name_raw):
         name = name_raw.strip()
-        if self.nicklist[channel][nickname].is_op:
+        if channel in self.nicklist and nickname in self.nicklist[channel] and self.nicklist[channel][nickname].is_op:
             self.send(reply_to, "Froze info for " + name + ".")
             self.r.set("*" + name.lower(), "frozen")
         else:
@@ -58,7 +58,7 @@ class InfoBot(IRCBot):
 
     def unfreeze_info(self, nickname, channel, reply_to, name_raw):
         name = name_raw.strip()
-        if self.nicklist[channel][nickname].is_op:
+        if channel in self.nicklist and nickname in self.nicklist[channel] and self.nicklist[channel][nickname].is_op:
             self.send(reply_to, "Unfroze info for " + name + ".")
             self.r.set("*" + name.lower(), "")
         else:
